@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watermelon Cantaloupe</title>
+    <script>
+        // Function to save data to localStorage
+        function saveData() {
+            const input = document.getElementById('dataInput').value;
+            localStorage.setItem('myData', input);
+            displayData();
+        }
+
+        // Function to display data from localStorage
+        function displayData() {
+            const data = localStorage.getItem('myData');
+            document.getElementById('display').innerText = data ? data : 'No data found';
+        }
+
+        // Display data on page load
+        window.onload = displayData;
+    </script>
+</head>
+<body>
+    <h1>Welcome to Watermelon Cantaloupe</h1>
+    <input type="text" id="dataInput" placeholder="Enter some data">
+    <button onclick="saveData()">Save Data</button>
+    <div id="display"></div>
+</body>
+</html>
