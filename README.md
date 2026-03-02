@@ -48,8 +48,8 @@ const adminMessage=document.getElementById('adminMessage');
 const titleEl=document.getElementById('title');
 let moderatorActive=false,clickCount=0;
 
-// الألقاب الأصلية
-let nicknames=[
+// تحميل الألقاب من التخزين أو استخدام الأصلية
+let nicknames = JSON.parse(localStorage.getItem("nicknames")) || [
   'ارثر 🍸','اسكانور','اشبيرون 🌙','ال','اميرة العلكه','انتاريس','انيا','انيوشا','اوليفر 🍀','ايانوكوجي','ايتادوري','ايتاشي','ايتشيغو','ايسديث 🌝','ايشيشا','ايرين','ايميليا',
   'باتشيرا','باجي 👑','باين','بروك','بيم','بيكاتشو',
   'تاتسومي','تانجيرو','توجي ⚔️','توشيرو ☁️','توكيتو 📜',
@@ -67,6 +67,11 @@ let nicknames=[
   'هانكوك','هوشينو','هيستوريا',
   'ويليام','يامادا 🎭','يامي','ياشيرو','يواشيرو','يور'
 ];
+
+// حفظ التغييرات
+function saveNicknames(){
+  localStorage.setItem("nicknames", JSON.stringify(nicknames));
+}
 
 const emojis=['✨','🔥','🌟','💫','🌈','🎯','🪐','🍀','🌸','🎵','⚡','🦋','🥂','🍒','🌙','🌞','🦅','🎀','🧧','⚔️','👑','☁️','🎭','❄️'];
 function randomEmoji(){return emojis[Math.floor(Math.random()*emojis.length)];}
@@ -94,6 +99,7 @@ function addNickname(){
   if(!name)return alert('الرجاء إدخال لقب');
   if(nicknames.includes(name))return alert('اللقب موجود مسبقًا');
   nicknames.push(name);
+  saveNicknames(); // حفظ
   input.value='';
   renderList();
 }
@@ -103,6 +109,7 @@ function deleteNickname(name){
   if(!moderatorActive)return alert('هذه الخاصية متاحة فقط للمشرف');
   if(!confirm('هل تريد حذف هذا اللقب؟'))return;
   nicknames=nicknames.filter(n=>n!==name);
+  saveNicknames(); // حفظ
   renderList();
 }
 
